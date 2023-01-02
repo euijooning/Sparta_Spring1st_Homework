@@ -34,5 +34,12 @@ public class Board {
         this.content = content;
     }
 
-
+    //비밀번호 검증 로직
+    public boolean isValidPassword(String inputPassword) {
+        if (inputPassword.equals(this.password)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
