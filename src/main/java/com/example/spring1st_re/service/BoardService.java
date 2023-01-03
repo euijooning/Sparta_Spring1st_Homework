@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service // 이게 없으면 서버가 안 뜬다.
@@ -20,6 +22,18 @@ public class BoardService {
     public BoardService(BoardRepository boardRepository) {
         this.boardRepository = boardRepository;
     } // ??? 이거 질문하자. => 이것도@RequiredArgsConstructor 쓰면 되나?
+
+    // 게시글 전체 조회 -> 요 코드 해석 부탁드립니당... 튜터님께서 쓰셔서 쓰긴 했는데, 무슨 의미인지 모르겠어요. 어레이리스트부터 for문의 의미...
+    @Transactional
+    public List<BoardResponse> getBoardList() {
+        // 작성 날짜 기준 내림차순으로 정리하기 ==> 게시물 작성 최신순으로 정렬해 내놓으란 뜻.
+        List<Board> boardList = boardRepository.findAllByOrderByCreatedAtDesc();
+        List<BoardResponse> boardResponseList = new ArrayList<>();
+        for (Board board : boardList) {
+            boardResponseList.add(new BoardResponse((board)));
+        }
+        return boardResponseList;
+    }
 
     @Transactional
     // 게시글 생성 로직
@@ -49,18 +63,20 @@ public class BoardService {
             throw new IllegalArgumentException("패스워드가 틀렸습니다!");
         }
     }
-        // 게시글 삭제 로직
-        @Transactional
-        public void deleteBoard(Long boardId, DeleteBoardRequest deleteBoardRequest){
-            Board boardDelete = boardRepository.findById(boardId).orElseThrow(() -> new IllegalArgumentException("id 없음"));
-            String password = deleteBoardRequest.getPassword();
-            if (boardDelete.isValidPassword(password)) {
-                boardRepository.delete(boardDelete); //delete는 JPA에서 직접 제공 => 쿼리 직접 날려준다
-                System.out.println("삭제에 성공했습니다.");
-            } else {
-                throw new IllegalArgumentException("패스워드가 다릅니다!");
-            }
+
+    // 게시글 삭제 로직
+    @Transactional
+    public void deleteBoard(Long boardId, DeleteBoardRequest deleteBoardRequest) {
+        Board boardDelete = boardRepository.findById(boardId).orElseThrow(() -> new IllegalArgumentException("id 없음"));
+        String password = deleteBoardRequest.getPassword();
+        if (boardDelete.isValidPassword(password)) {
+            boardRepository.delete(boardDelete); //delete는 JPA에서 직접 제공 => 쿼리 직접 날려준다
+            System.out.println("삭제에 성공했습니다.");
+        } else {
+            throw new IllegalArgumentException("패스워드가 다릅니다!");
         }
+    }
+
 }
 
 
