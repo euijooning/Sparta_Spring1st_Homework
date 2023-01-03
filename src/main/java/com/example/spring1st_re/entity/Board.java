@@ -11,7 +11,7 @@ import javax.persistence.Id;
 @Entity
 @Getter
 @NoArgsConstructor
-public class Board {
+public class Board extends TimeStamped {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
 
