@@ -1,6 +1,7 @@
 package com.example.spring1st_re.entity;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,6 +10,7 @@ import javax.persistence.Id;
 
 @Entity
 @Getter
+@NoArgsConstructor
 public class Board {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -19,7 +21,7 @@ public class Board {
     private String password;
     private String content;
 
-    public Board() {} // 기본 생성자는 반드시 있어야 한다.
+    // public Board() {} // 기본 생성자는 반드시 있어야 한다.
 
     public Board(String title, String writer, String password, String content) {
         this.title = title;
