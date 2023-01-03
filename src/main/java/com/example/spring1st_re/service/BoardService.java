@@ -2,6 +2,7 @@ package com.example.spring1st_re.service;
 
 import com.example.spring1st_re.dto.BoardResponse;
 import com.example.spring1st_re.dto.CreateBoardRequest;
+import com.example.spring1st_re.dto.DeleteBoardRequest;
 import com.example.spring1st_re.dto.UpdateBoardRequest;
 import com.example.spring1st_re.entity.Board;
 import com.example.spring1st_re.repository.BoardRepository;
@@ -38,15 +39,28 @@ public class BoardService {
     @Transactional
     public void updateBoard(Long boardId, UpdateBoardRequest updateBoardRequest) {
         Board boardSaved = boardRepository.findById(boardId).orElseThrow(() -> new IllegalArgumentException("id 없음"));
-    //    boardSaved.update(updateBoardRequest.getTitle(), updateBoardRequest.getWriter(), updateBoardRequest.getContent());
-    //  추가요건 : 수정요청 시 수정 데이터와 비밀번호를 함께 보내서 서버에서 비밀번호 일치 여부 확인 후 업데이트 해라.
-    // 이게 앞서 넣어놓은(Board 에다가) 비밀번호 유효성 검사.
-        if(boardSaved.isValidPassword(updateBoardRequest.getPassword())) {
+        //    boardSaved.update(updateBoardRequest.getTitle(), updateBoardRequest.getWriter(), updateBoardRequest.getContent());
+        //  추가요건 : 수정요청 시 수정 데이터와 비밀번호를 함께 보내서 서버에서 비밀번호 일치 여부 확인 후 업데이트 해라.
+        // 이게 앞서 넣어놓은(Board 에다가) 비밀번호 유효성 검사.
+        if (boardSaved.isValidPassword(updateBoardRequest.getPassword())) {
             boardSaved.update(updateBoardRequest.getTitle(), updateBoardRequest.getWriter(), updateBoardRequest.getContent());
             boardRepository.save(boardSaved);
         } else {
             throw new IllegalArgumentException("패스워드가 틀렸습니다!");
         }
-
     }
+        // 게시글 삭제 로직
+        @Transactional
+        public void deleteBoard(Long boardId, DeleteBoardRequest deleteBoardRequest){
+            Board boardDelete = boardRepository.findById(boardId).orElseThrow(() -> new IllegalArgumentException("id 없음"));
+            String password = deleteBoardRequest.getPassword();
+            if (boardDelete.isValidPassword(password)) {
+                boardRepository.delete(boardDelete); //delete는 JPA에서 직접 제공 => 쿼리 직접 날려준다
+                System.out.println("삭제에 성공했습니다.");
+            } else {
+                throw new IllegalArgumentException("패스워드가 다릅니다!");
+            }
+        }
 }
+
+
