@@ -1,11 +1,14 @@
 package com.example.spring1st_re.service;
 
+import com.example.spring1st_re.dto.BoardResponse;
 import com.example.spring1st_re.dto.CreateBoardRequest;
 import com.example.spring1st_re.entity.Board;
 import com.example.spring1st_re.repository.BoardRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.transaction.Transactional;
+import java.util.Optional;
 
 @Service // 이게 없으면 서버가 안 뜬다.
 public class BoardService {
@@ -21,6 +24,12 @@ public class BoardService {
     public void createBoard(CreateBoardRequest createBoardRequest) {
         Board board = new Board(createBoardRequest.getTitle(), createBoardRequest.getWriter(), createBoardRequest.getPassword(), createBoardRequest.getContent());
         boardRepository.save(board);
+    }
+    @Transactional
+    // 게시글 조회 로직
+    public BoardResponse getBoard(Long boardId) {
+       Board board = boardRepository.findById(boardId).orElseThrow(() -> new IllegalArgumentException("id 없음"));
+        return new BoardResponse(board);
     }
 }
 
