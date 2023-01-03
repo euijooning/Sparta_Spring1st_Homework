@@ -9,11 +9,12 @@ import javax.transaction.Transactional;
 
 @Service // 이게 없으면 서버가 안 뜬다.
 public class BoardService {
-    private final BoardRepository boardRepository; // Repository를 상속받은 이 인터페이스는 DB처럼 동작한다. DB에게 시킬 때 얘한테 시키면 된다.
+    private final BoardRepository boardRepository;
+    // Repository를 상속받은 이 인터페이스는 DB처럼 동작한다. DB에게 시킬 때 얘한테 시키면 된다.
 
     public BoardService(BoardRepository boardRepository) {
         this.boardRepository = boardRepository;
-    } // ??? 이거 질문하자.
+    } // ??? 이거 질문하자. => 이것도@RequiredArgsConstructor 쓰면 되나?
 
     @Transactional
     // 게시글 생성 로직
