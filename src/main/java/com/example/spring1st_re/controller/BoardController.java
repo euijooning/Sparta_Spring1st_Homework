@@ -2,6 +2,7 @@ package com.example.spring1st_re.controller;
 
 import com.example.spring1st_re.dto.BoardResponse;
 import com.example.spring1st_re.dto.CreateBoardRequest;
+import com.example.spring1st_re.dto.UpdateBoardRequest;
 import com.example.spring1st_re.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -23,4 +24,8 @@ public class BoardController {
       return boardService.getBoard(boardId);
     }
 
+    @PutMapping("/api/posts/{boardId}")
+    public void updateBoard(@PathVariable Long boardId, @RequestBody UpdateBoardRequest updateBoardRequest) {
+        boardService.updateBoard(boardId, updateBoardRequest);
+    }
 }
