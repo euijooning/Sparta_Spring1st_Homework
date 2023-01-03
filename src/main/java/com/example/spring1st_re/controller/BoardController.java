@@ -2,6 +2,7 @@ package com.example.spring1st_re.controller;
 
 import com.example.spring1st_re.dto.BoardResponse;
 import com.example.spring1st_re.dto.CreateBoardRequest;
+import com.example.spring1st_re.dto.DeleteBoardRequest;
 import com.example.spring1st_re.dto.UpdateBoardRequest;
 import com.example.spring1st_re.service.BoardService;
 import lombok.RequiredArgsConstructor;
@@ -27,5 +28,10 @@ public class BoardController {
     @PutMapping("/api/posts/{boardId}")
     public void updateBoard(@PathVariable Long boardId, @RequestBody UpdateBoardRequest updateBoardRequest) {
         boardService.updateBoard(boardId, updateBoardRequest);
+    }
+
+    @DeleteMapping("/api/posts/{boardId}")
+    public void deleteBoard(@PathVariable Long boardId, @RequestBody DeleteBoardRequest deleteBoardRequest) {
+        boardService.deleteBoard(boardId, deleteBoardRequest);
     }
 }
