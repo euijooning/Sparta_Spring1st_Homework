@@ -26,13 +26,13 @@ public class Board {
         this.writer = writer;
         this.password = password;
         this.content = content;
-    } // 게시판 생성
+    } // 게시판 생성 - 제목, 글쓴이, 비밀번호, 내용 => 이렇게 네 개의 요소
 
     public void update(String title, String writer, String content) {
         this.title = title;
         this.writer = writer;
         this.content = content;
-    }
+    } // 게시글 업데이트(수정) 로직 / 제목, 작성자명, 작성 내용을 수정
 
     //비밀번호 검증 로직
     public boolean isValidPassword(String inputPassword) {
