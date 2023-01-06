@@ -11,7 +11,7 @@ import javax.persistence.Id;
 @Entity
 @Getter
 @NoArgsConstructor
-public class Board extends TimeStamped {
+public class Post extends TimeStamped {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
 
@@ -23,7 +23,7 @@ public class Board extends TimeStamped {
 
     // public Board() {} // 기본 생성자는 반드시 있어야 한다.
 
-    public Board(String title, String writer, String password, String content) {
+    public Post(String title, String writer, String password, String content) {
         this.title = title;
         this.writer = writer;
         this.password = password;

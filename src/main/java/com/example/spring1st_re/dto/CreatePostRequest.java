@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor // 기본생성자 생성과 동일
-public class CreateBoardRequest {
+public class CreatePostRequest {
     private String title;
     private String writer;
     private String password;
@@ -15,12 +15,10 @@ public class CreateBoardRequest {
 
     //public CreateBoardRequest() {} => NoArgsConstructor로 치환.
 
-    public CreateBoardRequest(String title, String writer, String password, String content) {
+    public CreatePostRequest(String title, String writer, String password, String content) {
         this.title = title;
         this.writer = writer;
         this.password = password;
         this.content = content;
     }
-
-
 }
