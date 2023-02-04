@@ -9,8 +9,10 @@ public class DeletePostRequest {
 
     private String password;
 
+/*
     public DeletePostRequest(String password) {
         this.password = password;
     }
+ */
 }
 
