@@ -10,11 +10,14 @@ public class UpdatePostRequest {
     private String writer;
     private String content;
 
+    private String password;
 
-    public UpdatePostRequest(String title, String writer, String content) {
+
+    public UpdatePostRequest(String title, String writer, String content, String password) {
         this.title = title;
         this.writer = writer;
         this.content = content;
+        this.password = password;
 
     }
 }
