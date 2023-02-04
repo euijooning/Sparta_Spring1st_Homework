@@ -6,20 +6,23 @@ import com.example.spring1st_re.dto.DeletePostRequest;
 import com.example.spring1st_re.dto.UpdatePostRequest;
 import com.example.spring1st_re.entity.Post;
 import com.example.spring1st_re.repository.PostRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
+
+@RequiredArgsConstructor
 @Service // 이게 없으면 서버가 안 뜬다.
 public class PostService {
     private final PostRepository postRepository;
     // Repository를 상속받은 이 인터페이스는 DB처럼 동작한다. DB에게 시킬 때 얘한테 시키면 된다.
 
-    public PostService(PostRepository postRepository) {
-        this.postRepository = postRepository;
-    }
+//    public PostService(PostRepository postRepository) {
+//        this.postRepository = postRepository;
+//    } @RequiredArgsConstructor 가 대체함
 
     // 게시글 전체 조회
     @Transactional
