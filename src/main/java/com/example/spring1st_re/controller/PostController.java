@@ -37,7 +37,7 @@ public class PostController {
 
     // 게시물 1개 수정
     @PutMapping("/api/posts/{postId}")
-    public void updateBoard(@PathVariable Long postId, @RequestBody UpdatePostRequest updatePostRequest) {
+    public void updatePost(@PathVariable Long postId, @RequestBody UpdatePostRequest updatePostRequest) {
         postService.updatePost(postId, updatePostRequest);
     }
 
